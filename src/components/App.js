@@ -4,48 +4,34 @@ import React, { useState } from 'react'
 import { useEffect } from 'react';
 import axios from 'axios';
 
-
 /**
- * @usersApi : https://jsonplaceholder.typicode.com/users
- * @postApi :  https://jsonplaceholder.typicode.com/posts
- * @task1 :  onMount username sshould be displayed on frontend
- * @task2 : on clicked toggle, show post's body, again toggle between username and post's body. 
- */
+ *
+ * @postApi :  https://jsonplaceholder.typicode.com/users
+ * @task1 :  onMount usernames should be displayed on frontend
+ **/
 
 
 const App = () => {
-  const [image, setimage] = useState([]);
-  const [toggle, settoggle] = useState(false);
 
-  useEffect(() => {
-    if (toggle) {
-      axios.get('https://jsonplaceholder.typicode.com/posts').then((res) => {
-        setimage(res.data);
+  const [image, setimage] = useState([]); 
 
-      })
-    } else {
-      axios.get('https://jsonplaceholder.typicode.com/users').then((res) => {
-        setimage(res.data);
-      })
-    }
-  }, [toggle])
 
   return (
     <div className="App">
+      <h1>Usernames</h1>
       {
         image && image.map((item, index) => {
+          console.log(item)
           return (
-            <div key={item.id}>
+            <div key={item.id+index}>
               {
-                item.userId ? <> <div>{item.body}</div>
-                </> : <div> {item.username}</div>
+               <div> {item.username}</div>
               }
             </div>
           )
         })
       }
-      <button id='toggle' onClick={() => settoggle((pre) => !pre)}> Toggle Post </button>
-    </div>
+     </div>
   )
 }
 
